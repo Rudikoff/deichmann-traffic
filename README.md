@@ -1,5 +1,44 @@
-# Vue 3 + Vite
+# Дайхманн Трафик
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Сайт-портфолио трафик-инженера Андрея Дайхманна.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Что внутри
+
+- 8 экранов с эффектом «выезжающих» слайдов.
+- Скролл внутри слайда + навигация по свайпам.
+- Vue 3 + Vite + SCSS.
+- Конверсионные элементы (в разработке).
+
+## Стек
+
+- Vue 3 (Composition API)
+- Vite
+- SCSS
+- JavaScript (без TypeScript)
+
+## Запуск
+
+```bash
+npm install
+npm run dev
+
+## Сборка
+
+```bash
+npm run build
+
+## Структура
+
+text
+src/
+├── components/     # Компоненты слайдов
+├── data/           # Данные (тексты, цифры)
+├── utils/          # Утилиты
+├── assets/         # Стили, изображения
+└── App.vue         # Корневой компонент
+
+## Контакты
+
+VK: https://vk.ru/deichmann_traffic
+
+Телефон: +7 (986) 186-20-00
