@@ -55,13 +55,33 @@ const emit = defineEmits(['goToSlide'])
   }
 
   &__item {
-    padding: clamp(14px, 1.4vw, 22px);
+    position: relative;
+    padding: clamp(14px, 1.4vw, 22px) clamp(14px, 1.4vw, 22px) clamp(14px, 1.4vw, 22px) clamp(20px, 1.8vw, 28px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    overflow: hidden;
+
+    /* Тонкая оранжевая линия слева */
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: $color-accent;
+      opacity: 0.3;
+      transition: opacity 0.3s ease;
+    }
 
     &:hover {
       border-color: $color-accent;
+      background: rgba(249, 115, 22, 0.03);
+
+      &::before {
+        opacity: 1;
+      }
     }
   }
 

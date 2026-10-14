@@ -9,6 +9,7 @@ const emit = defineEmits(['goToSlide'])
   <div class="content">
     <div class="content__left">
       <h2 class="content__title">{{ data.title }}</h2>
+      <div class="content__divider"></div>
       <p class="content__subtitle">{{ data.subtitle }}</p>
 
       <p v-if="data.quote" class="content__quote">{{ data.quote }}</p>
@@ -126,13 +127,33 @@ const emit = defineEmits(['goToSlide'])
     display: flex;
     justify-content: center;
     align-items: center;
-    /* УДАЛЕНО: height: 100% */
 
     img {
       max-width: 100%;
-      max-height: 65vh;
-      border-radius: 16px;
-      object-fit: cover;
+      max-height: 70vh;
+      border-radius: 12px;
+      object-fit: contain;  // ← contain, чтобы код не обрезался
+      border: 1px solid rgba(249, 115, 22, 0.2);  // тонкая оранжевая рамка
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);  // глубокая тень
+    }
+  }
+  &__divider {
+    width: 60px;
+    height: 1px;
+    background: $color-accent;
+    margin-bottom: clamp(12px, 1.5vw, 20px);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: $color-accent;
+      box-shadow: 0 0 12px $color-accent;
+      opacity: 0.5;
     }
   }
 }

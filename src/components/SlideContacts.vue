@@ -1,5 +1,6 @@
 <script setup>
 import { getImage } from '@/utils/images'
+import ContactForm from '@/components/ContactForm.vue'
 
 defineProps({ data: { type: Object, required: true } })
 </script>
@@ -8,14 +9,13 @@ defineProps({ data: { type: Object, required: true } })
   <div class="contacts">
     <div class="contacts__left">
       <h2 class="contacts__name">{{ data.name }}</h2>
+      <div class="contacts__divider"></div>
       <p class="contacts__tagline">{{ data.tagline }}</p>
       <a :href="`tel:${data.phone.replace(/\D/g, '')}`" class="contacts__phone">
         {{ data.phone }}
       </a>
 
-      <div class="contacts__qr">
-        <p class="contacts__qr-label">Форма появится здесь (Этап 4)</p>
-      </div>
+      <ContactForm />
     </div>
 
     <div class="contacts__right">
@@ -31,7 +31,7 @@ defineProps({ data: { type: Object, required: true } })
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   align-items: center;
   padding: clamp(40px, 5vw, 100px);
   gap: clamp(40px, 5vw, 80px);
@@ -73,18 +73,6 @@ defineProps({ data: { type: Object, required: true } })
     }
   }
 
-  &__qr {
-    padding: clamp(16px, 1.5vw, 28px);
-    border: 1px dashed rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-  }
-
-  &__qr-label {
-    font-size: clamp(12px, 0.9vw, 15px);
-    color: $color-light-gray;
-    opacity: 0.5;
-  }
-
   &__right {
     display: flex;
     justify-content: center;
@@ -96,6 +84,25 @@ defineProps({ data: { type: Object, required: true } })
       max-height: 80vh;
       border-radius: 16px;
       object-fit: cover;
+    }
+  }
+  &__divider {
+    width: 80px;
+    height: 1px;
+    background: $color-accent;
+    margin: clamp(8px, 1vw, 16px) 0 clamp(16px, 2vw, 24px);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: $color-accent;
+      box-shadow: 0 0 12px $color-accent;
+      opacity: 0.5;
     }
   }
 }

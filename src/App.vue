@@ -1,7 +1,10 @@
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { slides } from '@/data/slides'
 
+
+import ScrollIndicator from '@/components/ScrollIndicator.vue'
+import FloatingCTA from '@/components/FloatingCTA.vue'
 import SlideHero from '@/components/SlideHero.vue'
 import SlideContent from '@/components/SlideContent.vue'
 import SlideCases from '@/components/SlideCases.vue'
@@ -149,6 +152,18 @@ function handleTouchEnd(event) {
     }
   }
 }
+const showFloatingCTA = computed(() => {
+  const current = slides[currentSlide.value]
+  return current && current.id !== 'contacts'
+})
+
+const slideNumber = computed(() => {
+  return String(currentSlide.value + 1).padStart(2, '0')
+})
+
+const totalSlides = computed(() => {
+  return String(slides.length).padStart(2, '0')
+})
 
 onMounted(() => {
   window.addEventListener('wheel', handleWheel, { passive: false })
@@ -180,6 +195,26 @@ onUnmounted(() => {
     >
       <component :is="getComponent(slide.type)" :data="slide" @go-to-slide="goToSlide" />
     </div>
+
+    <FloatingCTA
+      :visible="showFloatingCTA"
+      @click="goToSlide('contacts')"
+    />
+    <ScrollIndicator
+      :total="slides.length"
+      :current="currentSlide"
+      @go-to="animateTo"
+    />
+  </div>
+  <div class="frame">
+    <span class="frame__corner frame__corner--tl"></span>
+    <span class="frame__corner frame__corner--tr"></span>
+    <span class="frame__corner frame__corner--bl"></span>
+    <span class="frame__corner frame__corner--br"></span>
+  </div>
+  <div class="brand-label">
+    <span class="brand-label__text">ДАЙХМАНН ТРАФИК</span>
+    <span class="brand-label__counter">{{ slideNumber }} / {{ totalSlides }}</span>
   </div>
 </template>
 
@@ -192,6 +227,13 @@ onUnmounted(() => {
   height: 100vh;
   overflow: hidden;
   background: $color-graphite;
+
+  /* Сетка на фоне */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: 0 0;
 }
 
 .slide {
@@ -230,6 +272,100 @@ onUnmounted(() => {
     opacity: 0;
     z-index: 1;
     pointer-events: none;
+  }
+
+}
+.frame {
+  position: fixed;
+  inset: 20px;
+  pointer-events: none;
+  z-index: 80;
+
+  /* Тонкая рамка */
+  border: 1px solid rgba(249, 115, 22, 0.15);
+
+  &__corner {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid $color-accent;
+
+    &--tl {
+      top: -1px;
+      left: -1px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    &--tr {
+      top: -1px;
+      right: -1px;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    &--bl {
+      bottom: -1px;
+      left: -1px;
+      border-right: none;
+      border-top: none;
+    }
+
+    &--br {
+      bottom: -1px;
+      right: -1px;
+      border-left: none;
+      border-top: none;
+    }
+  }
+}
+.brand-label {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  z-index: 85;
+  pointer-events: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  font-family: $font-mono;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+
+  &__text {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  &__counter {
+    color: $color-accent;
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-label {
+    top: 24px;
+    left: 24px;
+    font-size: 9px;
+
+    &__text {
+      display: none;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .frame {
+    inset: 12px;
+    border-color: rgba(249, 115, 22, 0.1);
+
+    &__corner {
+      width: 12px;
+      height: 12px;
+      border-width: 1.5px;
+    }
   }
 }
 </style>

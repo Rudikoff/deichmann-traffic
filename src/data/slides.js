@@ -2,6 +2,7 @@ export const slides = [
   {
     id: 'hero',
     type: 'hero',
+    icon: 'user',
     title: 'ДАЙХМАНН АНДРЕЙ',
     subtitle: 'Трафик-инженер',
     description: 'Гибрид трафик-менеджера и фронтенд-инженера. Работаю с Директом, Авито, аналитикой и кодом',
@@ -16,6 +17,7 @@ export const slides = [
   {
     id: 'how-i-work',
     type: 'content',
+    icon: 'tools',
     title: 'Как я работаю',
     subtitle: 'Не просто настраиваю рекламу — смотрю на бизнес целиком: сайт, код, воронку, аналитику',
     quote: 'Мой принцип — продавать не товар, а решение',
@@ -34,6 +36,7 @@ export const slides = [
   {
     id: 'cases',
     type: 'cases',
+    icon: 'chart',
     title: 'Кейсы',
     cases: [
       {
@@ -41,6 +44,7 @@ export const slides = [
         logo: 'logo-stroiekonom.png',
         title: 'СтройЭконом',
         niche: 'Продажа стройматериалов',
+        
         stats: [
           { value: '3-4х', label: 'рост прибыли' },
           { value: '600+', label: 'отзывов на Авито' },
@@ -54,6 +58,7 @@ export const slides = [
         logo: 'logo-cordismed.png',
         title: 'КордисМед',
         niche: 'Медицинское оборудование (B2B)',
+        
         stats: [
           { value: '4-5х', label: 'рост сделок' },
           { value: '11', label: 'кампаний' },
@@ -89,8 +94,10 @@ export const slides = [
   {
     id: 'tech-background',
     type: 'content',
+    icon: 'code',
     title: 'Технический бэкграунд',
     subtitle: 'Что я умею, помимо рекламы',
+    photo: 'screen-ai-quiz-code.png',
     tools: [
       { icon: 'code', text: 'Вёрстка и правка фронтенда — Peugeot: 80% фронта за неделю' },
       { icon: 'quiz', text: 'Конверсионные элементы — квиз с ИИ, PopUp, окно сегментации' },
@@ -103,12 +110,14 @@ export const slides = [
   {
     id: 'avito',
     type: 'cases',
+    icon: 'store',
     title: 'Продвижение на Авито',
     cases: [
       {
         id: 'stroiekonom-avito',
         title: 'СтройЭконом',
         niche: 'Продажа стройматериалов',
+        photo: 'screen-avito-stroiekonom.png',
         stats: [
           { value: '4', label: 'профиля' },
           { value: '600+', label: 'отзывов' },
@@ -120,6 +129,7 @@ export const slides = [
         id: 'cordismed-avito',
         title: 'КордисМед',
         niche: 'Медицинское оборудование (B2B)',
+        photo: 'screen-avito-cordis.png',
         stats: [
           { value: '300', label: 'объявлений' },
           { value: '4-7', label: 'обращений в день' },
@@ -132,15 +142,18 @@ export const slides = [
   {
     id: 'how-i-think',
     type: 'content',
+    icon: 'lightbulb',
     title: 'Как я думаю о проектах',
     subtitle: 'Когда я работаю с клиентом, я смотрю не на «настройку рекламы», а на бизнес целиком',
     quote: 'Логика — продавать не товар, а решение — остаётся моим подходом к работе',
     description: 'В проекте КордисМед я выявил боль покупателей медицинского оборудования — они умеют пользоваться техникой, но не умеют привлекать на неё пациентов. Я предложил концепцию «Маркетинговый навигатор»: при покупке оборудования мы бесплатно делаем анализ направления и даём советы, как привлечь пациентов',
+    photo: 'screen-mkt-navigator.png',
     cta: { text: 'Хочу маршрут к решению', action: 'contacts' }
   },
   {
     id: 'services',
     type: 'services',
+    icon: 'list',
     title: 'Услуги',
     services: [
       { num: '01', title: 'Яндекс.Директ', subtitle: 'Настройка и ведение' },
@@ -156,6 +169,7 @@ export const slides = [
   {
     id: 'contacts',
     type: 'contacts',
+    icon: 'phone',
     title: 'Контакты',
     name: 'ДАЙХМАНН АНДРЕЙ',
     tagline: 'Если нужен партнёр, который отвечает за цифры — давайте поговорим',

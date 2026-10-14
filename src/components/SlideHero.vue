@@ -12,10 +12,17 @@ const emit = defineEmits(['goToSlide'])
       <p class="hero__subtitle">{{ data.subtitle }}</p>
       <p class="hero__description">{{ data.description }}</p>
 
-      <div class="hero__stats">
-        <div v-for="stat in data.stats" :key="stat.label" class="hero__stat">
-          <span class="hero__stat-value">{{ stat.value }}</span>
-          <span class="hero__stat-label">{{ stat.label }}</span>
+      <div class="hero__stats-wrapper">
+        <span class="hero__corner hero__corner--tl"></span>
+        <span class="hero__corner hero__corner--tr"></span>
+        <span class="hero__corner hero__corner--bl"></span>
+        <span class="hero__corner hero__corner--br"></span>
+
+        <div class="hero__stats">
+          <div v-for="stat in data.stats" :key="stat.label" class="hero__stat">
+            <span class="hero__stat-value">{{ stat.value }}</span>
+            <span class="hero__stat-label">{{ stat.label }}</span>
+          </div>
         </div>
       </div>
 
@@ -37,14 +44,14 @@ const emit = defineEmits(['goToSlide'])
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   align-items: center;
-  padding: clamp(40px, 5vw, 100px);
+  padding: clamp(40px, 4vw, 60px) clamp(40px, 5vw, 100px);
   gap: clamp(40px, 5vw, 80px);
   overflow: hidden;
 
   &__title {
-    font-size: clamp(56px, 6vw, 110px);
+    font-size: clamp(48px, 5.5vw, 96px);
     color: $color-white;
     margin-bottom: clamp(12px, 1.5vw, 24px);
     line-height: 1;
@@ -53,25 +60,24 @@ const emit = defineEmits(['goToSlide'])
   }
 
   &__subtitle {
-    font-size: clamp(24px, 2.2vw, 40px);
+    font-size: clamp(20px, 2vw, 34px);
     color: $color-accent;
     margin-bottom: clamp(16px, 2vw, 32px);
     line-height: 1.2;
   }
 
   &__description {
-    font-size: clamp(16px, 1.3vw, 22px);
+    font-size: clamp(15px, 1.2vw, 19px);
     color: $color-light-gray;
     opacity: 0.8;
-    margin-bottom: clamp(32px, 4vw, 64px);
+    margin-bottom: clamp(24px, 3vw, 48px);
     max-width: 600px;
     line-height: 1.5;
   }
 
   &__stats {
     display: flex;
-    gap: clamp(32px, 4vw, 64px);
-    margin-bottom: clamp(32px, 4vw, 64px);
+    gap: clamp(24px, 3vw, 48px);
     flex-wrap: wrap;
   }
 
@@ -98,7 +104,7 @@ const emit = defineEmits(['goToSlide'])
     background: $color-accent;
     color: $color-white;
     border: none;
-    padding: clamp(16px, 1.5vw, 24px) clamp(32px, 3vw, 56px);
+    padding: clamp(14px, 1.3vw, 20px) clamp(28px, 2.5vw, 48px);
     font-size: clamp(15px, 1.1vw, 18px);
     font-weight: 600;
     cursor: pointer;
@@ -124,6 +130,50 @@ const emit = defineEmits(['goToSlide'])
       object-fit: cover;
     }
   }
+  
+  &__stats-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 24px 32px 24px 24px;
+    margin-bottom: clamp(24px, 3vw, 48px);
+  }
+
+  &__corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid $color-accent;
+    opacity: 0.5;
+
+    &--tl {
+      top: 0;
+      left: 0;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    &--tr {
+      top: 0;
+      right: 0;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    &--bl {
+      bottom: 0;
+      left: 0;
+      border-right: none;
+      border-top: none;
+    }
+
+    &--br {
+      bottom: 0;
+      right: 0;
+      border-left: none;
+      border-top: none;
+    }
+  }
+
 }
 @media (max-width: 768px) {
   .hero {

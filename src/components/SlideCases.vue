@@ -10,8 +10,22 @@ const emit = defineEmits(['goToSlide'])
     <h2 class="cases__title">{{ data.title }}</h2>
 
     <div class="cases__grid">
-      <div v-for="item in data.cases" :key="item.id" class="cases__card">
-        <img v-if="item.logo" :src="getImage(item.logo)" :alt="item.title" class="cases__logo" />
+      <div v-for="(item, index) in data.cases" :key="item.id" class="cases__card">
+        <span class="cases__card-num">{{ String(index + 1).padStart(2, '0') }}</span>
+        <!-- Логотип или фото профиля -->
+        <img
+          v-if="item.logo"
+          :src="getImage(item.logo)"
+          :alt="item.title"
+          class="cases__logo"
+        />
+        <img
+          v-else-if="item.photo"
+          :src="getImage(item.photo)"
+          :alt="item.title"
+          class="cases__photo"
+        />
+
         <p class="cases__niche">{{ item.niche }}</p>
 
         <div class="cases__stats">
@@ -58,12 +72,14 @@ const emit = defineEmits(['goToSlide'])
   }
 
   &__card {
+    position: relative;
     background: $color-white;
     border-radius: 14px;
     padding: clamp(18px, 1.8vw, 32px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    padding-top: 40px;
 
     &:hover {
       transform: translateY(-4px);
@@ -77,6 +93,16 @@ const emit = defineEmits(['goToSlide'])
     margin-bottom: clamp(8px, 1vw, 14px);
     object-fit: contain;
     object-position: left;
+  }
+
+  &__photo {
+    width: 100%;
+    max-height: clamp(120px, 15vw, 180px);
+    object-fit: cover;
+    object-position: top;
+    border-radius: 8px;
+    margin-bottom: clamp(12px, 1.5vw, 18px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
   }
 
   &__niche {
@@ -131,6 +157,16 @@ const emit = defineEmits(['goToSlide'])
       color: $color-white;
     }
   }
+  &__card-num {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-family: $font-mono;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: rgba(249, 115, 22, 0.4);
+  }
 }
 
 @media (max-width: 768px) {
@@ -154,6 +190,10 @@ const emit = defineEmits(['goToSlide'])
 
     &__logo {
       max-height: 32px;
+    }
+
+    &__photo {
+      max-height: 140px;
     }
 
     &__stat-value {
