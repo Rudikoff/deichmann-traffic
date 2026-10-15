@@ -104,8 +104,16 @@ function getIcon(name) {
 
     &--active {
       background: $color-accent;
+      border-color: $color-accent;
       color: $color-white;
-      /* УБРАЛИ scale — он и был причиной наложения */
+      transform: scale(1.2);
+      
+
+      &:hover {
+        background: $color-accent;
+        transform: scale(1.25);
+        animation: none;  // ← убираем мерцание при hover
+      }
     }
   }
 

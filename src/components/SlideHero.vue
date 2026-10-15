@@ -1,7 +1,10 @@
 <script setup>
 import { getImage } from '@/utils/images'
 
-defineProps({ data: { type: Object, required: true } })
+const props = defineProps({
+  data: { type: Object, required: true },
+  isActive: { type: Boolean, default: false }  // ← передаём из App.vue
+})
 const emit = defineEmits(['goToSlide'])
 </script>
 
@@ -144,6 +147,7 @@ const emit = defineEmits(['goToSlide'])
     height: 12px;
     border: 1.5px solid $color-accent;
     opacity: 0.5;
+    animation: flicker 1s ease-in-out infinite;
 
     &--tl {
       top: 0;
@@ -174,6 +178,41 @@ const emit = defineEmits(['goToSlide'])
     }
   }
 
+}
+.hero {
+  &__title {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  }
+
+  &__subtitle {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+  }
+
+  &__description {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+  }
+
+  &__stats-wrapper {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+  }
+
+  &__cta {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+  }
+
+  &__photo {
+    animation: fadeInScale 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 @media (max-width: 768px) {
   .hero {

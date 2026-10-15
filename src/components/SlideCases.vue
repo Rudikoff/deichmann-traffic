@@ -1,7 +1,10 @@
 <script setup>
 import { getImage } from '@/utils/images'
 
-defineProps({ data: { type: Object, required: true } })
+defineProps({ 
+  data: { type: Object, required: true },
+  isActive: { type: Boolean, default: false }
+  })
 const emit = defineEmits(['goToSlide'])
 </script>
 
@@ -166,6 +169,7 @@ const emit = defineEmits(['goToSlide'])
     font-weight: 600;
     letter-spacing: 0.1em;
     color: rgba(249, 115, 22, 0.4);
+    animation: flicker 1s ease-in-out infinite;
   }
 }
 

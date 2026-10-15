@@ -1,7 +1,9 @@
 <script setup>
 import { getImage } from '@/utils/images'
-
-defineProps({ data: { type: Object, required: true } })
+defineProps({
+  data: { type: Object, required: true },
+  isActive: { type: Boolean, default: false }
+})
 const emit = defineEmits(['goToSlide'])
 </script>
 
@@ -138,7 +140,7 @@ const emit = defineEmits(['goToSlide'])
     }
   }
   &__divider {
-    width: 60px;
+    width: 100px;
     height: 1px;
     background: $color-accent;
     margin-bottom: clamp(12px, 1.5vw, 20px);

@@ -2,7 +2,10 @@
 import { getImage } from '@/utils/images'
 import ContactForm from '@/components/ContactForm.vue'
 
-defineProps({ data: { type: Object, required: true } })
+defineProps({
+  data: { type: Object, required: true },
+  isActive: { type: Boolean, default: false }
+})
 </script>
 
 <template>
@@ -158,10 +161,10 @@ defineProps({ data: { type: Object, required: true } })
     }
   }
   &__divider {
-    width: 80px;
+    width: 100px;
     height: 1px;
     background: $color-accent;
-    margin: clamp(8px, 1vw, 16px) 0 clamp(16px, 2vw, 24px);
+    margin-bottom: clamp(12px, 1.5vw, 20px);
     position: relative;
 
     &::before {

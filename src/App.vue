@@ -232,7 +232,12 @@ onUnmounted(() => {
         'slide--next': index > currentSlide
       }"
     >
-      <component :is="getComponent(slide.type)" :data="slide" @go-to-slide="goToSlide" />
+      <component
+        :is="getComponent(slide.type)"
+        :data="slide"
+        :is-active="index === currentSlide"
+        @go-to-slide="goToSlide"
+      />
     </div>
 
     <FloatingCTA
@@ -329,6 +334,7 @@ onUnmounted(() => {
     width: 16px;
     height: 16px;
     border: 2px solid $color-accent;
+    animation: flicker 1s ease-in-out infinite;
 
     &--tl {
       top: -1px;

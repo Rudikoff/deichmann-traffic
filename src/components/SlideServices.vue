@@ -1,6 +1,7 @@
 <script setup>
 defineProps({
-  data: { type: Object, required: true }
+  data: { type: Object, required: true },
+  isActive: { type: Boolean, default: false }
 })
 
 const emit = defineEmits(['goToSlide'])
