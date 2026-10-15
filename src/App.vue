@@ -41,7 +41,7 @@ function animateTo(index) {
   currentSlide.value = index
   setTimeout(() => {
     isAnimating.value = false
-  }, 900)
+  }, 500)
 }
 
 // Проверка: докручен ли слайд до низа / верха
@@ -270,8 +270,13 @@ onUnmounted(() => {
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   background: $color-graphite;
+
+  /* Отключаем pull-to-refresh и overscroll */
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 
   /* Сетка на фоне */
   background-image:
@@ -293,8 +298,8 @@ onUnmounted(() => {
   overflow: hidden;
   will-change: transform, opacity;
   transition:
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 
   &--active {
     transform: translateX(0);

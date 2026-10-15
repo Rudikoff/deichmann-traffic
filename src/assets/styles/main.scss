@@ -11,6 +11,8 @@ html, body {
   background: $color-graphite;
   color: $color-text-light;
   overflow-x: hidden;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
 
 #app {

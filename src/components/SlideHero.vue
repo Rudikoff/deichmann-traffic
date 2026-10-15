@@ -258,11 +258,11 @@ const emit = defineEmits(['goToSlide'])
     background: linear-gradient(
       to bottom,
       rgba(26, 26, 26, 0) 0%,
-      rgba(26, 26, 26, 0) 30%,
-      rgba(26, 26, 26, 0.5) 50%,
-      rgba(26, 26, 26, 0.85) 65%,
-      rgba(26, 26, 26, 0.98) 80%,
-      $color-graphite 100%
+      rgba(26, 26, 26, 0) 25%,
+      rgba(26, 26, 26, 0.5) 45%,
+      rgba(26, 26, 26, 0.85) 60%,
+      rgba(26, 26, 26, 0.98) 75%,
+      $color-graphite 90%
     );
   }
 
