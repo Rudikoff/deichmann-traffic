@@ -172,7 +172,7 @@ const emit = defineEmits(['goToSlide'])
 @media (max-width: 768px) {
   .cases {
     padding: 20px 20px 60px;
-    justify-content: flex-start;
+    justify-content: center;
 
     &__title {
       font-size: 28px;

@@ -177,40 +177,112 @@ const emit = defineEmits(['goToSlide'])
 }
 @media (max-width: 768px) {
   .hero {
-    grid-template-columns: 1fr;
-    padding: 24px;
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    padding: 0;
+    gap: 0;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
 
-    &__title {
-      font-size: 36px;
-    }
+  /* Фото — на всю высоту */
+  .hero__photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 1;
+  }
 
-    &__subtitle {
-      font-size: 18px;
-    }
+  .hero__photo img {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+    object-position: 80% 25%;
+    border-radius: 0;
+  }
 
-    &__description {
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
+  /* Градиент — отдельный слой ПОВЕРХ фото, но ПОД контентом */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(26, 26, 26, 0) 0%,
+      rgba(26, 26, 26, 0) 30%,
+      rgba(26, 26, 26, 0.5) 50%,
+      rgba(26, 26, 26, 0.85) 65%,
+      rgba(26, 26, 26, 0.98) 80%,
+      $color-graphite 100%
+    );
+  }
 
-    &__stats {
-      gap: 20px;
-      margin-bottom: 20px;
-    }
+  /* Контент — снизу, поверх градиента */
+  .hero__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 24px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
 
-    &__stat-value {
-      font-size: 28px;
-    }
+  .hero__title {
+    font-size: 32px;
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
 
-    &__cta {
-      width: 100%;
-      padding: 14px 24px;
-    }
+  .hero__subtitle {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
 
-    &__photo {
-      display: none;
-    }
+  .hero__description {
+    font-size: 13px;
+    margin-bottom: 20px;
+    max-width: 100%;
+  }
+
+  .hero__stats-wrapper {
+    padding: 12px 20px 12px 16px;
+    margin-bottom: 20px;
+  }
+
+  .hero__stats {
+    gap: 16px;
+  }
+
+  .hero__stat-value {
+    font-size: 22px;
+  }
+
+  .hero__stat-label {
+    font-size: 10px;
+  }
+
+  .hero__corner {
+    width: 10px;
+    height: 10px;
+  }
+
+  .hero__cta {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 14px;
   }
 }
 </style>

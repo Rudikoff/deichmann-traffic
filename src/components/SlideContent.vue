@@ -163,7 +163,7 @@ const emit = defineEmits(['goToSlide'])
     grid-template-columns: 1fr;
     padding: 24px 20px 60px;
     gap: 24px;
-    align-items: start;
+    align-items: center;
 
     &__title {
       font-size: 28px;

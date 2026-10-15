@@ -174,6 +174,8 @@ export const slides = [
     name: 'ДАЙХМАНН АНДРЕЙ',
     tagline: 'Если нужен партнёр, который отвечает за цифры — давайте поговорим',
     phone: '+7 (986) 186-20-00',
+    email: 'start@deichmann-traffic.ru',        
+    vk: 'https://vk.ru/deichmann_traffic',
     photo: 'photo-3.jpg',
     form: {
       fields: [

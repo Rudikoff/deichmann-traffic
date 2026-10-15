@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { slides } from '@/data/slides'
 
 
+import MobileNav from '@/components/MobileNav.vue'
 import ScrollIndicator from '@/components/ScrollIndicator.vue'
 import FloatingCTA from '@/components/FloatingCTA.vue'
 import SlideHero from '@/components/SlideHero.vue'
@@ -93,19 +94,33 @@ let touchStartY = 0
 let touchStartTime = 0
 let wasAtBottomOnStart = false
 let wasAtTopOnStart = false
+let touchStartedInNav = false
 
 function handleTouchStart(event) {
+  // Проверяем, начался ли свайп внутри навигации
+  const target = event.target
+  touchStartedInNav = !!(
+    target.closest('.mobile-nav__panel') ||
+    target.closest('.mobile-nav__toggle')
+  )
+
+  if (touchStartedInNav) return
+
   touchStartX = event.touches[0].clientX
   touchStartY = event.touches[0].clientY
   touchStartTime = Date.now()
 
-  // Запоминаем, был ли слайд в крайней точке НА МОМЕНТ СТАРТА свайпа
   const activeSlide = slidesRefs.value[currentSlide.value]
   wasAtBottomOnStart = activeSlide ? isAtBottom(activeSlide) : false
   wasAtTopOnStart = activeSlide ? isAtTop(activeSlide) : false
 }
 
 function handleTouchEnd(event) {
+  if (touchStartedInNav) {
+    touchStartedInNav = false
+    return
+  }
+
   if (isAnimating.value) return
 
   const touchEndX = event.changedTouches[0].clientX
@@ -152,9 +167,25 @@ function handleTouchEnd(event) {
     }
   }
 }
+// Реактивное отслеживание мобильного разрешения
+const isMobile = ref(false)
+
+function updateMobile() {
+  isMobile.value = window.innerWidth <= 768
+}
+
+// Логика видимости плавающей кнопки
 const showFloatingCTA = computed(() => {
   const current = slides[currentSlide.value]
-  return current && current.id !== 'contacts'
+  if (!current) return false
+
+  // Скрываем на слайде "Контакты"
+  if (current.id === 'contacts') return false
+
+  // Скрываем на "Hero" на мобильных
+  if (current.id === 'hero' && isMobile.value) return false
+
+  return true
 })
 
 const slideNumber = computed(() => {
@@ -166,10 +197,15 @@ const totalSlides = computed(() => {
 })
 
 onMounted(() => {
+  // Регистрация touch/mouse событий
   window.addEventListener('wheel', handleWheel, { passive: false })
   window.addEventListener('keydown', handleKeydown)
   window.addEventListener('touchstart', handleTouchStart, { passive: true })
   window.addEventListener('touchend', handleTouchEnd, { passive: true })
+
+  // Проверка мобильного разрешения
+  updateMobile()
+  window.addEventListener('resize', updateMobile)
 })
 
 onUnmounted(() => {
@@ -177,6 +213,9 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
   window.removeEventListener('touchstart', handleTouchStart)
   window.removeEventListener('touchend', handleTouchEnd)
+
+  // Убираем слушатель resize
+  window.removeEventListener('resize', updateMobile)
 })
 </script>
 
@@ -205,6 +244,7 @@ onUnmounted(() => {
       :current="currentSlide"
       @go-to="animateTo"
     />
+    <MobileNav @go-to="animateTo" />
   </div>
   <div class="frame">
     <span class="frame__corner frame__corner--tl"></span>
