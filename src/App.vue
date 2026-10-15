@@ -228,6 +228,7 @@ onUnmounted(() => {
       class="slide"
       :class="{
         'slide--active': index === currentSlide,
+        'slide--top-padding': slide.needsTopPadding,
         'slide--prev': index < currentSlide,
         'slide--next': index > currentSlide
       }"
@@ -267,12 +268,13 @@ onUnmounted(() => {
 @use '@/assets/styles/variables' as *;
 
 .slides-container {
-  position: relative;
+ position: relative;
   width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: clip;
+  overflow-y: hidden;
   background: $color-graphite;
+  padding-bottom: env(safe-area-inset-bottom);
 
   /* Отключаем pull-to-refresh и overscroll */
   overscroll-behavior: none;
@@ -285,7 +287,11 @@ onUnmounted(() => {
   background-size: 60px 60px;
   background-position: 0 0;
 }
-
+@supports (min-height: 100dvh) {
+  .slides-container {
+    min-height: 100dvh;
+  }
+}
 .slide {
   position: absolute;
   top: 0;
@@ -295,7 +301,8 @@ onUnmounted(() => {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: hidden;
   will-change: transform, opacity;
   transition:
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
@@ -306,8 +313,16 @@ onUnmounted(() => {
     opacity: 1;
     z-index: 2;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  @media (max-width: 768px) {
+    &--active.slide--top-padding {
+      padding-top: 60px;
+      scroll-padding-top: 60px;
+    }
   }
 
   &--prev {
@@ -323,7 +338,6 @@ onUnmounted(() => {
     z-index: 1;
     pointer-events: none;
   }
-
 }
 .frame {
   position: fixed;

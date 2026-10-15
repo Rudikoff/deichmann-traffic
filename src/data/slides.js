@@ -17,6 +17,7 @@ export const slides = [
   {
     id: 'how-i-work',
     type: 'content',
+    needsTopPadding: true,
     icon: 'tools',
     title: 'Как я работаю',
     subtitle: 'Не просто настраиваю рекламу — смотрю на бизнес целиком: сайт, код, воронку, аналитику',
@@ -36,6 +37,7 @@ export const slides = [
   {
     id: 'cases',
     type: 'cases',
+    needsTopPadding: true,
     icon: 'chart',
     title: 'Кейсы',
     cases: [
@@ -94,6 +96,7 @@ export const slides = [
   {
     id: 'tech-background',
     type: 'content',
+    needsTopPadding: true,
     icon: 'code',
     title: 'Технический бэкграунд',
     subtitle: 'Что я умею, помимо рекламы',
@@ -110,6 +113,7 @@ export const slides = [
   {
     id: 'avito',
     type: 'cases',
+    needsTopPadding: true,
     icon: 'store',
     title: 'Продвижение на Авито',
     cases: [
@@ -142,6 +146,7 @@ export const slides = [
   {
     id: 'how-i-think',
     type: 'content',
+    needsTopPadding: true,
     icon: 'lightbulb',
     title: 'Как я думаю о проектах',
     subtitle: 'Когда я работаю с клиентом, я смотрю не на «настройку рекламы», а на бизнес целиком',
@@ -153,6 +158,7 @@ export const slides = [
   {
     id: 'services',
     type: 'services',
+    needsTopPadding: true,
     icon: 'list',
     title: 'Услуги',
     services: [
