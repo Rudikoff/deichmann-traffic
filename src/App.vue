@@ -32,7 +32,7 @@ function goToSlide(id) {
   if (id === 'contacts' && window.ym) {
     window.ym(114271605, 'reachGoal', 'cta_click')
   }
-  
+
   const index = slides.findIndex(s => s.id === id)
   if (index !== -1 && index !== currentSlide.value) {
     animateTo(index)
@@ -43,6 +43,13 @@ function animateTo(index) {
   if (isAnimating.value) return
   isAnimating.value = true
   currentSlide.value = index
+
+  // Обновляем хэш в URL
+    const slideId = slides[index]?.id
+    if (slideId) {
+      history.replaceState(null, '', `#${slideId}`)
+  }
+
   setTimeout(() => {
     isAnimating.value = false
   }, 500)
@@ -200,6 +207,15 @@ const totalSlides = computed(() => {
   return String(slides.length).padStart(2, '0')
 })
 
+function handleHashChange() {
+  const hash = window.location.hash.replace('#', '')
+  if (!hash) return
+  const index = slides.findIndex(s => s.id === hash)
+  if (index !== -1 && index !== currentSlide.value) {
+    animateTo(index)
+  }
+}
+
 onMounted(() => {
   // Регистрация touch/mouse событий
   window.addEventListener('wheel', handleWheel, { passive: false })
@@ -210,6 +226,17 @@ onMounted(() => {
   // Проверка мобильного разрешения
   updateMobile()
   window.addEventListener('resize', updateMobile)
+
+  // Чтение хэша при загрузке
+  const hash = window.location.hash.replace('#', '')
+  if (hash) {
+    const index = slides.findIndex(s => s.id === hash)
+    if (index !== -1) {
+      currentSlide.value = index
+    }
+  }
+
+  window.addEventListener('hashchange', handleHashChange)
 })
 
 onUnmounted(() => {
@@ -220,6 +247,8 @@ onUnmounted(() => {
 
   // Убираем слушатель resize
   window.removeEventListener('resize', updateMobile)
+
+  window.removeEventListener('hashchange', handleHashChange)
 })
 </script>
 
