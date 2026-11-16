@@ -76,6 +76,10 @@ async function handleSubmit() {
       throw new Error(data.error || 'Ошибка')
     }
 
+    if (window.ym) {
+      window.ym(114271605, 'reachGoal', 'form_send')
+    }
+    
     status.value = 'success'
     name.value = ''
     phone.value = ''

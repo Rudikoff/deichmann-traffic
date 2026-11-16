@@ -29,6 +29,10 @@ function getComponent(type) {
 }
 
 function goToSlide(id) {
+  if (id === 'contacts' && window.ym) {
+    window.ym(114271605, 'reachGoal', 'cta_click')
+  }
+  
   const index = slides.findIndex(s => s.id === id)
   if (index !== -1 && index !== currentSlide.value) {
     animateTo(index)
