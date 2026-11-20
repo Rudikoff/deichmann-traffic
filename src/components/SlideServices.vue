@@ -1,10 +1,32 @@
 <script setup>
-defineProps({
-  data: { type: Object, required: true },
-  isActive: { type: Boolean, default: false }
-})
+import { ref } from 'vue'
+import ServiceModal from '@/components/ServiceModal.vue'
 
+const props = defineProps({ data: { type: Object, required: true } })
 const emit = defineEmits(['goToSlide'])
+
+const selectedService = ref(null)
+const modalVisible = ref(false)
+
+function openModal(service) {
+  selectedService.value = service
+  modalVisible.value = true
+}
+
+function closeModal() {
+  modalVisible.value = false
+  selectedService.value = null
+}
+
+function goToCases(slideId) {
+  closeModal()
+  emit('goToSlide', slideId)
+}
+
+function goToContacts() {
+  closeModal()
+  emit('goToSlide', 'contacts')
+}
 </script>
 
 <template>
@@ -12,17 +34,33 @@ const emit = defineEmits(['goToSlide'])
     <h2 class="services__title">{{ data.title }}</h2>
 
     <div class="services__grid">
-      <div v-for="service in data.services" :key="service.num" class="services__item">
+      <div v-for="service in data.services" :key="service.num" class="services__item"  @click="openModal(service)">
         <span class="services__num">{{ service.num }}</span>
         <h3 class="services__item-title">{{ service.title }}</h3>
         <p class="services__item-subtitle">{{ service.subtitle }}</p>
+        <span class="services__item-arrow" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </span>
       </div>
     </div>
+
 
     <button class="services__cta" @click="emit('goToSlide', 'contacts')">
       {{ data.cta.text }}
     </button>
   </div>
+
+  <ServiceModal 
+      v-if="selectedService"
+      :service="selectedService"
+      :visible="modalVisible"
+      @close="closeModal"
+      @go-to-cases="goToCases"
+      @go-to-contacts="goToContacts"
+    />
 </template>
 
 <style lang="scss" scoped>
@@ -60,7 +98,8 @@ const emit = defineEmits(['goToSlide'])
     padding: clamp(14px, 1.4vw, 22px) clamp(14px, 1.4vw, 22px) clamp(14px, 1.4vw, 22px) clamp(20px, 1.8vw, 28px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    transition: border-color 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
 
     /* Тонкая оранжевая линия слева */
@@ -77,10 +116,17 @@ const emit = defineEmits(['goToSlide'])
     }
 
     &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(249, 115, 22, 0.15);
       border-color: $color-accent;
-      background: rgba(249, 115, 22, 0.03);
+      background: rgba(249, 115, 22, 0.05);
 
       &::before {
+        opacity: 1;
+      }
+
+      .services__item-arrow {
+        transform: translateX(4px);
         opacity: 1;
       }
     }
@@ -122,6 +168,14 @@ const emit = defineEmits(['goToSlide'])
     &:hover {
       transform: translateY(-3px);
     }
+  }
+  &__item-arrow {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    color: $color-accent;
+    opacity: 0.4;
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 }
 
