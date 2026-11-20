@@ -158,7 +158,8 @@ export const slides = [
     type: 'services',
     needsTopPadding: true,
     icon: 'list',
-    title: 'Услуги',
+    title: 'Услуги и цены',
+    legal: 'ИП · Договор · Документы',
     services: [
       {
         num: '01',
@@ -258,6 +259,7 @@ export const slides = [
     email: 'start@deichmann-traffic.ru',
     vk: 'https://vk.ru/deichmann_traffic',
     photo: 'photo-3.jpg',
+    legal: 'Официально: ИП, работа по договору. Предоставляю акты, счета и закрывающие документы для бухгалтерии.',
     form: {
       fields: [
         { name: 'name', label: 'Имя', type: 'text', required: false },

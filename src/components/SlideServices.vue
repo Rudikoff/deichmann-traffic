@@ -57,6 +57,7 @@ function goToContacts() {
       v-if="selectedService"
       :service="selectedService"
       :visible="modalVisible"
+      :legal="data.legal"
       @close="closeModal"
       @go-to-cases="goToCases"
       @go-to-contacts="goToContacts"
@@ -178,6 +179,7 @@ function goToContacts() {
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
 }
+
 
 @media (max-width: 768px) {
   .services {

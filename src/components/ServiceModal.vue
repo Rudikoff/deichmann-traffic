@@ -3,7 +3,8 @@ import { onMounted, onUnmounted } from 'vue'
 
 defineProps({
   service: { type: Object, required: true },
-  visible: { type: Boolean, default: false }
+  visible: { type: Boolean, default: false },
+  legal: { type: String, default: '' }
 })
 const emit = defineEmits(['close', 'goToCases', 'goToContacts'])
 
@@ -44,7 +45,7 @@ onUnmounted(() => {
             <span class="modal__price">{{ service.modal.price }}</span>
             <p v-if="service.modal.priceNote" class="modal__note">{{ service.modal.priceNote }}</p>
           </div>
-
+          <p v-if="legal" class="modal__legal">{{ legal }}</p>
           <div class="modal__actions">
             <button
               v-if="service.modal.hasCases"
@@ -245,6 +246,18 @@ onUnmounted(() => {
       transform: translateY(-2px);
     }
   }
+}
+
+.modal__legal {
+  margin-top: 20px;
+  padding-top: 16px;
+   padding-bottom: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: clamp(11px, 0.85vw, 13px);
+  color: $color-light-gray;
+  opacity: 0.5;
+  text-align: center;
+  letter-spacing: 0.05em;
 }
 
 @media (max-width: 768px) {

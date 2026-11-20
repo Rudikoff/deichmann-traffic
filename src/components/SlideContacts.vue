@@ -14,6 +14,7 @@ defineProps({
       <h2 class="contacts__name">{{ data.name }}</h2>
       <div class="contacts__divider"></div>
       <p class="contacts__tagline">{{ data.tagline }}</p>
+      <p v-if="data.legal" class="contacts__legal">{{ data.legal }}</p>
 
       <!-- Телефон — крупный, оранжевый -->
       <a
@@ -82,7 +83,7 @@ defineProps({
   &__name {
     font-size: clamp(40px, 4vw, 72px);
     color: $color-white;
-    margin-bottom: clamp(12px, 1.5vw, 20px);
+    margin-bottom: clamp(8px, 1vw, 14px);
     line-height: 1.05;
     font-weight: 700;
   }
@@ -91,7 +92,7 @@ defineProps({
     font-size: clamp(16px, 1.3vw, 22px);
     color: $color-light-gray;
     opacity: 0.8;
-    margin-bottom: clamp(12px, 1.5vw, 20px);
+    margin-bottom: clamp(8px, 1vw, 14px);
     line-height: 1.4;
   }
 
@@ -101,7 +102,7 @@ defineProps({
     color: $color-accent;
     text-decoration: none;
     font-weight: 700;
-    margin-bottom: clamp(12px, 1.5vw, 20px);
+    margin-bottom: clamp(8px, 1vw, 14px);
     transition: opacity 0.3s ease;
 
     &:hover {
@@ -164,7 +165,7 @@ defineProps({
     width: 100px;
     height: 1px;
     background: $color-accent;
-    margin-bottom: clamp(12px, 1.5vw, 20px);
+    margin-bottom: clamp(8px, 1vw, 14px);
     position: relative;
 
     &::before {
@@ -178,6 +179,14 @@ defineProps({
       box-shadow: 0 0 12px $color-accent;
       opacity: 0.5;
     }
+  }
+  &__legal {
+    font-size: clamp(11px, 0.85vw, 13px);
+    color: $color-light-gray;
+    opacity: 0.6;
+    line-height: 1.4;
+    margin-top: clamp(4px, 0.5vw, 8px);    /* маленький отступ сверху */
+    margin-bottom: clamp(8px, 1vw, 14px); /* маленький отступ снизу */
   }
 }
 @media (max-width: 768px) {
